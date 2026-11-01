@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="salt">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#e8eee8">
+	<title>Ramble — A field guide for elsewhere</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #e8eee8;
+			--surface: #f5f6ef;
+			--ink: #1d3834;
+			--muted: #647a70;
+			--line: #c5d2c8;
+			--accent: #c45c42;
+			--accent-ink: #fffaf0;
+			--photo-wash: #9fb6a6;
+			--serif: 'Fraunces', Georgia, serif;
+			--sans: 'DM Sans', sans-serif;
+			--mono: 'DM Mono', monospace;
+			font-family: var(--sans);
+			background: var(--paper);
+			color: var(--ink);
+		}
+
+		html[data-theme="moss"] {
+			--paper: #e5e9d9;
+			--surface: #f3f2e7;
+			--ink: #283c2b;
+			--muted: #68755d;
+			--line: #c4cbb6;
+			--accent: #6b763c;
+			--accent-ink: #fffdf2;
+			--photo-wash: #b7c192;
+		}
+
+		html[data-theme="clay"] {
+			--paper: #f0e2d7;
+			--surface: #faf3e9;
+			--ink: #4a2d28;
+			--muted: #8a6658;
+			--line: #ddc6b8;
+			--accent: #bc573d;
+			--accent-ink: #fff9f0;
+			--photo-wash: #d3a18a;
+		}
+
+		html[data-theme="blue-hour"] {
+			color-scheme: dark;
+			--paper: #202f3b;
+			--surface: #2b3d48;
+			--ink: #f0ece1;
+			--muted: #a9b5b4;
+			--line: #455965;
+			--accent: #df9b69;
+			--accent-ink: #202f3b;
+			--photo-wash: #597687;
+		}
+
+		* { box-sizing: border-box; }
+		body { margin: 0; min-width: 320px; background: var(--paper); transition: background-color .35s ease, color .35s ease; }
+		button, a { color: inherit; font: inherit; }
+		button { cursor: pointer; }
+		a { text-decoration: none; }
+		a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+		.page { max-width: 1600px; margin: 0 auto; padding: 0 5.2vw; }
+
+		.topbar { height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+		.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 700; letter-spacing: -.5px; }
+		.brand-mark { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid var(--ink); border-radius: 50%; font-family: var(--serif); font-size: 17px; line-height: 1; }
+		.nav { display: flex; align-items: center; gap: 35px; font-size: 13px; color: var(--muted); }
+		.nav a:first-child { color: var(--ink); }
+		.issue { font: 10px var(--mono); letter-spacing: .8px; text-transform: uppercase; }
+
+		.theme-bar { min-height: 73px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
+		.theme-caption { display: flex; align-items: baseline; gap: 10px; }
+		.eyebrow { font: 10px var(--mono); letter-spacing: 1.15px; text-transform: uppercase; }
+		.theme-caption span:last-child { color: var(--muted); font-size: 12px; }
+		.themes { display: flex; align-items: center; gap: 8px; }
+		.theme-option { min-height: 36px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid transparent; border-radius: 2px; background: transparent; color: var(--muted); font-size: 12px; transition: border-color .2s, color .2s, background-color .2s; }
+		.theme-option[aria-checked="true"] { border-color: var(--line); background: var(--surface); color: var(--ink); }
+		.swatch { display: inline-flex; width: 13px; height: 13px; overflow: hidden; border: 1px solid rgb(0 0 0 / 10%); border-radius: 50%; }
+		.swatch i { width: 50%; height: 100%; }
+		.swatch i:first-child { background: var(--swatch-a); }
+		.swatch i:last-child { background: var(--swatch-b); }
+
+		main { padding: 50px 0 70px; }
+		.section-note { display: flex; align-items: center; gap: 12px; color: var(--muted); }
+		.section-note::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+		.feature { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: 6.5%; align-items: center; margin-top: 24px; }
+		.feature-copy { padding: 12px 0 24px; }
+		.location { display: flex; align-items: center; gap: 9px; color: var(--accent); }
+		.location svg { width: 15px; height: 15px; }
+		h1 { max-width: 540px; margin: 24px 0 18px; font: 500 clamp(54px, 6.1vw, 88px)/.98 var(--serif); letter-spacing: -2px; }
+		.dek { max-width: 390px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+		.story-meta { display: flex; align-items: center; gap: 15px; margin-top: 30px; color: var(--muted); font: 10px var(--mono); letter-spacing: .5px; text-transform: uppercase; }
+		.story-meta span + span::before { content: ''; display: inline-block; width: 3px; height: 3px; margin: 0 15px 2px 0; border-radius: 50%; background: var(--accent); }
+		.read-link { display: inline-flex; align-items: center; gap: 15px; margin-top: 36px; padding: 0 0 8px; border: 0; border-bottom: 1px solid var(--accent); background: none; font-size: 13px; font-weight: 600; }
+		.read-link span { color: var(--accent); font-size: 18px; transition: transform .2s; }
+		.read-link:hover span { transform: translateX(4px); }
+
+		.feature-image { position: relative; min-height: 460px; overflow: hidden; background: var(--photo-wash); }
+		.feature-image img { position: absolute; width: 100%; height: 100%; inset: 0; object-fit: cover; object-position: center 54%; }
+		.image-label { position: absolute; right: 16px; bottom: 16px; padding: 9px 11px; background: var(--surface); color: var(--ink); font: 9px var(--mono); letter-spacing: .6px; text-transform: uppercase; }
+
+		.below-feature { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; margin-top: 58px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+		.note-card { padding: 22px 24px 25px 0; }
+		.note-card + .note-card { padding-left: 24px; border-left: 1px solid var(--line); }
+		.note-card .eyebrow { color: var(--muted); }
+		.note-card p { margin: 10px 0 0; font: 500 21px/1.2 var(--serif); }
+		.note-card small { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
+		footer { display: flex; justify-content: space-between; align-items: center; padding: 22px 0 30px; color: var(--muted); font: 10px var(--mono); letter-spacing: .4px; }
+		footer a { color: var(--ink); }
+
+		@media (min-width: 1400px) { .page { padding-right: 7vw; padding-left: 7vw; } }
+		@media (max-width: 850px) {
+			.page { padding: 0 6vw; }
+			.nav { gap: 18px; }
+			.issue { display: none; }
+			.feature { grid-template-columns: 1fr 1.1fr; gap: 5%; }
+			.feature-image { min-height: 390px; }
+			h1 { font-size: clamp(52px, 8vw, 72px); }
+		}
+		@media (max-width: 620px) {
+			.topbar { height: 68px; }
+			.nav { gap: 15px; font-size: 12px; }
+			.nav a:last-child { display: none; }
+			.theme-bar { align-items: flex-start; flex-direction: column; justify-content: center; gap: 12px; padding: 14px 0; }
+			.theme-caption { gap: 8px; }
+			.themes { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+			.theme-option { justify-content: center; gap: 6px; padding: 0 5px; font-size: 11px; }
+			main { padding: 36px 0 48px; }
+			.feature { display: flex; flex-direction: column; align-items: stretch; gap: 28px; margin-top: 18px; }
+			.feature-copy { padding: 0; }
+			h1 { max-width: 430px; margin: 18px 0 14px; font-size: clamp(56px, 15vw, 78px); letter-spacing: -1.5px; }
+			.dek { font-size: 14px; }
+			.story-meta { margin-top: 22px; }
+			.read-link { margin-top: 25px; }
+			.feature-image { min-height: 56vw; }
+			.below-feature { grid-template-columns: 1fr; margin-top: 38px; }
+			.note-card, .note-card + .note-card { padding: 17px 0; border-left: 0; }
+			.note-card + .note-card { border-top: 1px solid var(--line); }
+			.note-card p { font-size: 19px; }
+			footer { gap: 15px; font-size: 9px; }
+		}
+		@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+	</style>
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<a class="brand" href="#top" aria-label="Ramble home"><span class="brand-mark">r</span> ramble</a>
+			<nav class="nav" aria-label="Main navigation">
+				<a href="#story">The journal</a>
+				<a href="#dispatches">Dispatches</a>
+				<a href="#about">About</a>
+			</nav>
+			<span class="issue">Vol. 08 &nbsp; / &nbsp; Autumn 2026</span>
+		</header>
+
+		<section class="theme-bar" aria-label="Appearance">
+			<div class="theme-caption"><span class="eyebrow">Set the mood</span><span>Choose a color story</span></div>
+			<div class="themes" role="radiogroup" aria-label="Color theme">
+				<button class="theme-option" type="button" role="radio" aria-checked="true" data-theme-choice="salt" aria-label="Salt theme">
+					<span class="swatch" style="--swatch-a:#e8eee8;--swatch-b:#c45c42"><i></i><i></i></span>Salt
+				</button>
+				<button class="theme-option" type="button" role="radio" aria-checked="false" data-theme-choice="moss" aria-label="Moss theme">
+					<span class="swatch" style="--swatch-a:#e5e9d9;--swatch-b:#6b763c"><i></i><i></i></span>Moss
+				</button>
+				<button class="theme-option" type="button" role="radio" aria-checked="false" data-theme-choice="clay" aria-label="Clay theme">
+					<span class="swatch" style="--swatch-a:#f0e2d7;--swatch-b:#bc573d"><i></i><i></i></span>Clay
+				</button>
+				<button class="theme-option" type="button" role="radio" aria-checked="false" data-theme-choice="blue-hour" aria-label="Blue hour theme">
+					<span class="swatch" style="--swatch-a:#202f3b;--swatch-b:#df9b69"><i></i><i></i></span>Blue hour
+				</button>
+			</div>
+		</section>
+
+		<main id="top">
+			<div class="section-note eyebrow" id="story">A field guide for elsewhere</div>
+			<article class="feature">
+				<div class="feature-copy">
+					<div class="location eyebrow">
+						<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.5"/></svg>
+						Dolomites, Italy
+					</div>
+					<h1>The long way around.</h1>
+					<p class="dek">A quiet week in the high country, where the path keeps its own time and the best view is never quite the one you planned for.</p>
+					<div class="story-meta"><span>Words by Ada Moretti</span><span>7 min read</span></div>
+					<a class="read-link" href="#dispatches">Read the story <span aria-hidden="true">&rarr;</span></a>
+				</div>
+				<figure class="feature-image">
+					<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=1600&amp;q=85" alt="A still alpine lake reflecting forested mountains beneath a clear sky" fetchpriority="high">
+					<figcaption class="image-label">46° 28' N &nbsp; / &nbsp; 11° 46' E</figcaption>
+				</figure>
+			</article>
+
+			<section class="below-feature" id="dispatches" aria-label="Travel notes">
+				<div class="note-card"><span class="eyebrow">01 &nbsp; Take your time</span><p>Three days, one trail, no alarm.</p><small>The route that rewards a slower pace.</small></div>
+				<div class="note-card"><span class="eyebrow">02 &nbsp; Sleep here</span><p>A room above the tree line.</p><small>Small inns with a view worth staying in for.</small></div>
+				<div class="note-card"><span class="eyebrow">03 &nbsp; Bring back</span><p>Wild honey and a paper map.</p><small>Good things from the valley below.</small></div>
+			</section>
+		</main>
+
+		<footer id="about"><span>Ramble &copy; 2026</span><span>Made for the long way round.</span><a href="#top">Back to top &uarr;</a></footer>
+	</div>
+	<script>
+		const themeButtons = [...document.querySelectorAll('[data-theme-choice]')];
+		const themeColor = document.querySelector('meta[name="theme-color"]');
+		const themeColors = { salt: '#e8eee8', moss: '#e5e9d9', clay: '#f0e2d7', 'blue-hour': '#202f3b' };
+
+		function setTheme(theme) {
+			if (!themeColors[theme]) return;
+			document.documentElement.dataset.theme = theme;
+			themeColor.content = themeColors[theme];
+			themeButtons.forEach((button) => {
+				button.setAttribute('aria-checked', String(button.dataset.themeChoice === theme));
+			});
+			try { localStorage.setItem('ramble-theme', theme); } catch {}
+		}
+
+		themeButtons.forEach((button, index) => {
+			button.addEventListener('click', () => setTheme(button.dataset.themeChoice));
+			button.addEventListener('keydown', (event) => {
+				if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+				event.preventDefault();
+				const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? themeButtons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + themeButtons.length) % themeButtons.length;
+				themeButtons[nextIndex].focus();
+				setTheme(themeButtons[nextIndex].dataset.themeChoice);
+			});
+		});
+
+		try {
+			const savedTheme = localStorage.getItem('ramble-theme');
+			if (savedTheme) setTheme(savedTheme);
+		} catch {}
+	</script>
+</body>
+</html>
